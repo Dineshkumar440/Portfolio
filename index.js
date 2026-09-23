@@ -412,62 +412,89 @@ function startCounter() {
 
 window.addEventListener("scroll", startCounter);
 
+
 // ===========================
-// CONTACT FORM VALIDATION
+// CONTACT FORM
 // ===========================
+
+emailjs.init({
+    publicKey: "j0duI09Ll6KB3g9uc"
+});
 
 const form = document.getElementById("contactForm");
 
-form.addEventListener("submit", function(e){
+form.addEventListener("submit", function(e) {
 
     e.preventDefault();
 
     const name = document.getElementById("name").value.trim();
-
     const email = document.getElementById("email").value.trim();
-
     const subject = document.getElementById("subject").value.trim();
-
     const message = document.getElementById("message").value.trim();
 
     const emailRegex =
         /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if(name.length < 3){
+    if (name.length < 3) {
 
         alert("Please enter a valid name.");
-
         return;
 
     }
 
-    if(!emailRegex.test(email)){
+    if (!emailRegex.test(email)) {
 
         alert("Please enter a valid email address.");
-
         return;
 
     }
 
-    if(subject.length < 3){
+    if (subject.length < 3) {
 
         alert("Subject should be at least 3 characters.");
-
         return;
 
     }
 
-    if(message.length < 10){
+    if (message.length < 10) {
 
         alert("Message should contain at least 10 characters.");
-
         return;
 
     }
 
-    alert("Message sent successfully!");
+    const templateParams = {
 
-    form.reset();
+        name: name,
+        email: email,
+        subject: subject,
+        message: message
+
+    };
+
+    emailjs.send(
+        "service_mevfovi",
+        "template_o96m2fc",
+        templateParams
+    )
+
+    .then(function(response) {
+
+        console.log("SUCCESS!", response.status, response.text);
+
+        alert("Message sent successfully!");
+
+        form.reset();
+
+    })
+
+    .catch(function(error) {
+
+        console.error("FAILED...", error);
+
+        alert("Failed to send message. Please try again.");
+
+    });
 
 });
 
@@ -481,24 +508,6 @@ window.addEventListener("load",()=>{
 
 });
 
-// ===========================
-// KEYBOARD SHORTCUT
-// Press H to go Home
-// ===========================
-
-document.addEventListener("keydown",(e)=>{
-
-    if(e.key==="h" || e.key==="H"){
-
-        document.getElementById("home").scrollIntoView({
-
-            behavior:"smooth"
-
-        });
-
-    }
-
-});
 
 // ===========================
 // CONSOLE MESSAGE
