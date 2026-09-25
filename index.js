@@ -128,9 +128,11 @@ const typingElement = document.getElementById("typing");
 
 const words = [
     "Python Full Stack Developer",
-    "React Developer",
-    "FastAPI Developer",
-    "Frontend Developer"
+    "Python Developer",
+    "Django Developer",
+    "Backend Developer",
+    "Front-end Developer",
+    "Software Engineer"
 ];
 
 let wordIndex = 0;
